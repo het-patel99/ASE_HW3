@@ -2,7 +2,7 @@
 from num import Num
 from sym import Sym
 import row
-
+from collections import OrderedDict
 import re
 from enum import Enum
 
@@ -13,7 +13,7 @@ class Cols:
         self.all = []
         self.x = []
         self.y = []
-
+        self.klass = []
         for n, s in enumerate(t):
             if(s[-1].lower() != 'x'):
                 col = Num(n, s) if re.search("^[A-Z]+", s) != None else Sym(n, s)

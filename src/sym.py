@@ -36,7 +36,7 @@ class Sym():
                 self.mode = x
     
     ## Mid method returns the mode (most frequent)
-    def mid(self):
+    def mid(self,x):
         return self.mode
 
     ## div method returns the entropy 
@@ -49,5 +49,8 @@ class Sym():
 
     def rnd(self, x, n):
         return x
+
+    def dist(self,s1,s2):
+        return s1== "?" and s2 == "?" and 1 or s1==s2 and 0 or 1
 
 

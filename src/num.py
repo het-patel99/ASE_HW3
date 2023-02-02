@@ -27,7 +27,7 @@ class Num():
     ## add method adds the n value also,
     ## It upadtes the values of lo,hi d, mu,m2 which is used for,
     ## calculating standard devaiation. 
-    def add(self, value):
+    def add(self, value, d):
         if value != '?':
             float_value = float(value)
             self.n = self.n + 1
@@ -53,3 +53,17 @@ class Num():
             return x
         mult = math.pow(10, n)
         return math.floor(x*mult + 0.5) / mult
+
+    def norm(self, n):
+        return n == "?" and n or (n - self.lo)/(self.hi - self.lo + 1e-32)
+    
+    def dist(self,n1,n2):
+        if n1 == "?" and n2 == "?":
+            return 1
+        n1 = self.norm(n1)
+        n2 = self.norm(n2)
+        if n1 == "?":
+            n1 = n2 < 0.5 and 1 or 0
+        if n2 == "?":
+            n2 = n1 < 0.5 and 1 or 0
+        return abs(n1-n2)
