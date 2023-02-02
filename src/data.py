@@ -1,6 +1,6 @@
 
 from typing import List
-
+import math
 import os
 import csv
 import random
@@ -19,6 +19,11 @@ random_instance = random.Random()
 file = '../etc/data/auto93.csv'
 seed = 937162211
 dump = False
+min = 0.5
+p = 2
+Sample = 512
+help = False
+Far = 0.95
 
 def get_csv_contents(filepath: str) -> list[str]:
 
@@ -77,6 +82,82 @@ class Data():
             new_data.add(row)
         return new_data
 
+    def better(self, row1, row2):
+        s1,s2,ys = 0,0,self.cols.y
+        for _,col in enumerate(ys):
+            x = col.norm(row1.cells[col.at])
+            y = col.norm[row2.cells[col.at]]
+            s1 = s1 - math.exp(col.w*(x-y)/len(ys))
+            s2 = s2 - math.exp(col.w*(y-x)/len(ys))
+        return s1/len(ys) < s2/len(ys)
+
+    def dist(self, row1, row2):
+        n, d = 0,0
+        for col in enumerate(cols or self.cols.x):
+            n = n + 1
+            d = d + col.dist(row1.cells[col.at], row2.cells[col.at]) ^ p
+        return (d/n)^(1/p)
+
+    def around(self, row1, rows, cols):
+        return sorted(map(rows))
+
+    def half(self, rows, cols, above):
+        rows = rows or self.rows
+        some = many(rows,Sample)
+        A = above or any(some)
+        B = self.around(A,some)[(Far*len(rows)//1)]
+        C = self.dist(A,B)
+        left = {}
+        right = {}
+        for n,tmp in enumerate(sorted(map(rows))):
+            if n<=len(rows)//2:
+                left.add(tmp.row)
+                mid = tmp.row
+            else:
+                right.add(tmp.row)
+        return left, right, A,B,mid,C
+
+    def cluster(self, rows, min, cols, above):
+        rows = rows or self.rows
+        min = min or len(rows)^min
+        cols = cols or self.cols.x
+        node = data = self.clone(rows)
+        if len(rows)>2*min:
+            left, right, node.A, node.B, node.mid = self.half(rows,cols,above)
+            node.left = self.cluster(left,min,cols,node.A)
+            node.right = self.cluster(right,min,cols,node.B)
+        return node
+
+    def sway(self,rows,min,cols,above):
+        rows = rows or self.rows
+        min = min or len(rows)^min
+        cols = cols or self.cols.x
+        node = data = self.clone(rows)
+        if len(rows)>2*min:
+            left, right, node.A, node.B, node.mid = self.half(rows,cols,above)
+            if self.better(node.B,node.A):
+                left,right,node.A,node.B = right,left,node.B,node.A
+            else:
+                node.left = self.sway(left,min,cols,node.A)
+        return node
+
+def rand(lo,hi):
+    lo = lo or 0
+    hi = hi or 1
+    seed = (16807 * seed) % 2147483647
+    return lo + (hi-lo) * seed / 2147483647
+
+def rint(lo,hi):
+    return math.floor(0.5 + rand(lo,hi))
+
+def any(t):
+    return t[rint(len(t))]
+
+def many(t,n):
+    u = {}
+    for i in range(1,n):
+        u[1+len(u)] = any(t)
+    return u
 
 
 # ------------------- MAIN PROGRAM FLOW -------------------
@@ -133,15 +214,22 @@ def find_arg_value(args: list[str], optionA: str, optionB: str) -> str:
         return args[index + 1]
     return None
 
-help_string = """data.py : an example csv reader script.\n
-based on the original script (data.lua) by Tim Menzies <timm@ieee.org>\n
-USAGE:   data.lua  [OPTIONS] [-g ACTION]
+help_string = """cluster.lua : an example csv reader script
+(c)2022, Tim Menzies <timm@ieee.org>, BSD-2 
+
+USAGE: cluster.lua  [OPTIONS] [-g ACTION]
+
 OPTIONS:
-  -d  --dump  on crash, dump stack = false
-  -f  --file  name of file         = ../etc/data/auto93.csv
-  -g  --go    start-up action      = data
-  -h  --help  show help            = false
-  -s  --seed  random number seed   = 937162211
+  -d  --dump    on crash, dump stack   = false
+  -f  --file    name of file           = ../etc/data/auto93.csv
+  -F  --Far     distance to "faraway"  = .95
+  -g  --go      start-up action        = data
+  -h  --help    show help              = false
+  -m  --min     stop clusters at N^min = .5
+  -p  --p       distance coefficient   = 2
+  -s  --seed    random number seed     = 937162211
+  -S  --Sample  sampling data size     = 512
+
 ]]"""
 
 if __name__ == "__main__":
