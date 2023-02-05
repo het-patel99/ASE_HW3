@@ -59,7 +59,7 @@ def test_nums():
 
 
 def test_data():
-    test_data = Data(get_file())
+    test_data = Data.get_file()
     # i know this is horrible
     excepted_output = '\ny\tmid\t{ :Lbs- 2970.42 :Acc+ 15.57 :Mpg+ 23.84}\n \tdiv\t{ :Lbs- 846.84 :Acc+ 2.76 :Mpg+ 8.34}\nx\tmid\t{ :Clndrs 5.45 :Volume 193.43 :Model 76.01 :origin 1}\n \tdiv\t{ :Clndrs 1.7 :Volume 104.27 :Model 3.7 :origin 1.3273558482394003}'
 
@@ -87,13 +87,13 @@ def test_data():
     assert res
 
 def test_clone():
-    data1= Data(get_file())
+    data1= Data.get_file()
     data2= data1.clone(data1.rows)
     assert len(data1.rows) == len(data2.rows) and data1.cols.y[1].w == data2.cols.y[1].w and data1.cols.x[1].at == data2.cols.x[1].at and len(data1.cols.x) == len(data2.cols.x)
     
 
 def test_around():
-    data= Data(get_file())
+    data= Data.get_file()
     print(0,0,data.o(data.rows[1].cells))
     for n,t in enumerate(data.around(data.rows[1])):
         if n % 50 == 0:
@@ -101,7 +101,7 @@ def test_around():
     assert True
 
 def test_half():
-    data = Data(get_file())
+    data = Data.get_file()
     left,right,A,B,mid,c = Data.half() # arguments in half ??
     print(len(left), len(right), len(Data.rows))
     print(data.o(A.cells()))
@@ -111,11 +111,11 @@ def test_half():
     assert True
 
 def test_cluster():
-    data = Data(get_file())
+    data = Data.get_file()
     data.show(data.cluster(), "mid", data.cols.y,1)
     assert True
 
 def test_optimize():
-    data = Data(get_file())
+    data = Data.get_file()
     data.show(data.sway(), "mid", data.cols.y,1)
     assert True

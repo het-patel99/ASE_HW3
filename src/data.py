@@ -128,6 +128,10 @@ class Data():
             node.right = self.cluster(right,min,cols,node.B)
         return node
 
+    # api-side function to get the current input csv filepath
+    def get_file() -> str:
+        return file
+
     def sway(self,rows,min,cols,above):
         rows = rows or self.rows
         min = min or len(rows)^min
@@ -214,9 +218,7 @@ def get_seed() -> int:
 def should_dump() -> bool:
     return dump
 
-# api-side function to get the current input csv filepath
-def get_file() -> str:
-    return file
+
 
 ## find_arg_values gets the value of a command line argument
 # first it gets set of args

@@ -27,7 +27,7 @@ class Num():
     ## add method adds the n value also,
     ## It upadtes the values of lo,hi d, mu,m2 which is used for,
     ## calculating standard devaiation. 
-    def add(self, value, d):
+    def add(self, value):
         if value != '?':
             float_value = float(value)
             self.n = self.n + 1
