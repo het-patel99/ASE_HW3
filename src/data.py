@@ -141,6 +141,10 @@ class Data():
                 node.left = self.sway(left,min,cols,node.A)
         return node
 
+# show function needs to be added
+# rnd function needs to be added
+# o function needs to be added
+
 def rand(lo,hi):
     lo = lo or 0
     hi = hi or 1
