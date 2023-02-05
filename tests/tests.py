@@ -66,7 +66,7 @@ def test_data():
 
     y_mid_report = '{'
     y_div_report = '{'
-    for y in test_data.cols.y:
+    for y in Data.cols.y:
         y_mid_report = y_mid_report + ' :' + y.txt + ' ' + str(y.rnd(y.mid(), 2))
         y_div_report = y_div_report + ' :' + y.txt + ' ' + str(y.rnd(y.div(), 2))
     y_mid_report = y_mid_report + '}'
@@ -74,7 +74,7 @@ def test_data():
 
     x_mid_report = '{'
     x_div_report = '{'
-    for x in test_data.cols.x:
+    for x in Data.cols.x:
         x_mid_report = x_mid_report + ' :' + x.txt + ' ' + str(x.rnd(x.mid(), 2))
         x_div_report = x_div_report + ' :' + x.txt + ' ' + str(x.rnd(x.div(), 2))
     x_mid_report = x_mid_report + '}'
@@ -88,7 +88,7 @@ def test_data():
 
 def test_clone():
     data1= Data.get_file()
-    data2= data1.clone(data1.rows)
+    data2= Data.clone(data1.rows)
     assert len(data1.rows) == len(data2.rows) and data1.cols.y[1].w == data2.cols.y[1].w and data1.cols.x[1].at == data2.cols.x[1].at and len(data1.cols.x) == len(data2.cols.x)
     
 
@@ -104,18 +104,18 @@ def test_half():
     data = Data.get_file()
     left,right,A,B,mid,c = Data.half() # arguments in half ??
     print(len(left), len(right), len(Data.rows))
-    print(data.o(A.cells()))
-    print(data.o(B.cells()))
-    print(data.o(mid.cells())) 
+    print(Data.o(A.cells()))
+    print(Data.o(B.cells()))
+    print(Data.o(mid.cells())) 
 
     assert True
 
 def test_cluster():
     data = Data.get_file()
-    data.show(data.cluster(), "mid", data.cols.y,1)
+    Data.show(Data.cluster(), "mid", Data.cols.y,1)
     assert True
 
 def test_optimize():
     data = Data.get_file()
-    data.show(data.sway(), "mid", data.cols.y,1)
+    Data.show(Data.sway(), "mid", Data.cols.y,1)
     assert True
