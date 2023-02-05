@@ -128,9 +128,7 @@ class Data():
             node.right = self.cluster(right,min,cols,node.B)
         return node
 
-    # api-side function to get the current input csv filepath
-    def get_file() -> str:
-        return file
+
 
     def sway(self,rows,min,cols,above):
         rows = rows or self.rows
@@ -150,6 +148,8 @@ def fmt(sControl: str, *args): #control string (format string)
         print(string.format(sControl))
 
 # show function needs to be added
+def show():
+    return ""
 
 def rnd(n, nPlaces = 3):
     mult = math.pow(10, nPlaces)
@@ -198,6 +198,10 @@ def run_tests():
         
 
     print("\nPassing: " + str(passCount) + "\nFailing: " + str(failCount))
+    
+# api-side function to get the current input csv filepath
+def get_file() -> str:
+    return file
 
 # uses the value of the dump parameter and passed exception to determine what message to display to the user
 def get_crashing_behavior_message(e: Exception):
