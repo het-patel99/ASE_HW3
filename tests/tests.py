@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath('../src'))
 from src.cols import Cols
 from src.num import Num
 from src.sym import Sym
-from src.data import should_dump, get_crashing_behavior_message, get_file, get_csv_contents, Data
+from src.data import should_dump, get_crashing_behavior_message, get_csv_contents, Data
 
 def round_to(n, nPlaces = 3):
     mult = math.pow(10, nPlaces)
