@@ -3,7 +3,7 @@ import math
 
 ## Summarizes a stream of symbols
 ## Represents a column of character values
-class Sym():
+class Sym:
 
     ## Constructs the SYM class
     def __init__(self, at = 0, txt = ""):
@@ -36,7 +36,7 @@ class Sym():
                 self.mode = x
     
     ## Mid method returns the mode (most frequent)
-    def mid(self,x):
+    def mid(self):
         return self.mode
 
     ## div method returns the entropy 
