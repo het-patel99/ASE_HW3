@@ -141,9 +141,19 @@ class Data():
                 node.left = self.sway(left,min,cols,node.A)
         return node
 
+def fmt(sControl: str, *args): #control string (format string)
+    for string in args:
+        print(string.format(sControl))
+
 # show function needs to be added
-# rnd function needs to be added
-# o function needs to be added
+
+def rnd(n, nPlaces = 3):
+    mult = math.pow(10, nPlaces)
+    return math.floor(n*mult + 0.5) / mult
+
+def o(t: object):
+    #todo()
+    return ""
 
 def rand(lo,hi):
     lo = lo or 0
