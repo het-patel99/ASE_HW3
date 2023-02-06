@@ -148,7 +148,7 @@ def fmt(sControl: str, *args): #control string (format string)
         print(string.format(sControl))
 
 # show function needs to be added
-def show():
+def show(node, what, cols, nPlaces):
     return ""
 
 def rnd(n, nPlaces = 3):
