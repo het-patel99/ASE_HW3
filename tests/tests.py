@@ -3,6 +3,7 @@ import math
 import os
 import sys
 import traceback
+import collections
 
 
 sys.path.append(os.path.abspath('../src'))
@@ -88,21 +89,21 @@ def test_data():
 
 def test_clone():
     data1= Data(get_file())
-    data2= Data.clone(data1.rows)
+    data2= Data.clone()
     assert len(data1.rows) == len(data2.rows) and data1.cols.y[1].w == data2.cols.y[1].w and data1.cols.x[1].at == data2.cols.x[1].at and len(data1.cols.x) == len(data2.cols.x)
     
 
 def test_around():
     data= Data(get_file())
     print(0,0,o(data.rows[1].cells))
-    for n,t in enumerate(Data.around(data.rows[1])):
+    for n,t in enumerate(collections.OrderedDict(sorted(Data.around(data.rows[1]).items()))):
         if n % 50 == 0:
             print(n,rnd(t.dist,2), o(t.rows.cells))
     assert True
 
 def test_half():
     data = Data(get_file())
-    left,right,A,B,mid,c = Data.half(1,1,1) # arguments in half ??
+    left,right,A,B,mid,c = Data.half([],1,1) # arguments in half ??
     print(len(left), len(right), len(data.rows))
     print(o(A.cells()))
     print(o(B.cells()))

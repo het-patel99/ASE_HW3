@@ -8,6 +8,7 @@ import cols
 import row
 import sys
 import data
+import collections
 
 script_sir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(script_sir)
@@ -76,8 +77,8 @@ class Data():
             self.rows.append(new_row)
             self.cols.add(new_row)
 
-    def clone(self,rows):
-        new_data = Data({self.cols.names})
+    def clone(self):
+        new_data = Data(self.cols.names)
         for row in self.rows:
             new_data.add(row)
         return new_data
@@ -99,17 +100,17 @@ class Data():
         return (d/n)^(1/p)
 
     def around(self, rows):
-        return sorted(map(rows))
+        return map(sorted(map(rows)))
 
     def half(self, rows, cols, above):
         rows = rows or self.rows
         some = many(rows,Sample)
-        A = above or any(some)
+        A = any(some)
         B = self.around(A,some)[(Far*len(rows)//1)]
         C = self.dist(A,B)
         left = {}
         right = {}
-        for n,tmp in enumerate(sorted(map(rows))):
+        for n,tmp in enumerate(collections.OrderedDict(sorted(rows.items()))):
             if n<=len(rows)//2:
                 left.add(tmp.row)
                 mid = tmp.row
