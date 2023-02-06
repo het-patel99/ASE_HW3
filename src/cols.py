@@ -26,8 +26,7 @@ class Cols:
                         self.x.append(col)
                 
     def add(self, row: row.Rows):
-        for _,t in enumerate(self.x,self.y):
-            for _,col in enumerate(t):
-                col.add(row.cells[col.at])
+        for col in self.all:
+            col.add(row.cells[col.at])
 
 

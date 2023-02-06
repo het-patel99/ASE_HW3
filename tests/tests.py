@@ -3,6 +3,7 @@ import math
 import os
 import sys
 import traceback
+import collections
 
 
 sys.path.append(os.path.abspath('../src'))
@@ -10,7 +11,7 @@ sys.path.append(os.path.abspath('../src'))
 from src.cols import Cols
 from src.num import Num
 from src.sym import Sym
-from src.data import should_dump, get_crashing_behavior_message, get_file, get_csv_contents, Data
+from src.data import should_dump, get_crashing_behavior_message, get_file, get_csv_contents, Data, show, fmt, rnd, o, rand, rint, any, many
 
 def round_to(n, nPlaces = 3):
     mult = math.pow(10, nPlaces)
@@ -88,34 +89,34 @@ def test_data():
 
 def test_clone():
     data1= Data(get_file())
-    data2= data1.clone(data1.rows)
+    data2= data1.clone()
     assert len(data1.rows) == len(data2.rows) and data1.cols.y[1].w == data2.cols.y[1].w and data1.cols.x[1].at == data2.cols.x[1].at and len(data1.cols.x) == len(data2.cols.x)
     
 
 def test_around():
     data= Data(get_file())
-    print(0,0,data.o(data.rows[1].cells))
-    for n,t in enumerate(data.around(data.rows[1])):
+    print(0,0,o(data.rows[1].cells))
+    for n,t in enumerate(collections.OrderedDict(map(sorted(Data.around(data.rows[1])).items()))):
         if n % 50 == 0:
-            print(n,data.rnd(t.dist,2), data.o(t.rows.cells))
+            print(n,rnd(t.dist,2), o(t.rows.cells))
     assert True
 
 def test_half():
     data = Data(get_file())
-    left,right,A,B,mid,c = Data.half() # arguments in half ??
-    print(len(left), len(right), len(Data.rows))
-    print(data.o(A.cells()))
-    print(data.o(B.cells()))
-    print(data.o(mid.cells())) 
+    left,right,A,B,mid,c = data.half([],None,None) # arguments in half ??
+    print(len(left), len(right), len(data.rows))
+    print(o(A.cells()))
+    print(o(B.cells()))
+    print(o(mid.cells())) 
 
     assert True
 
 def test_cluster():
     data = Data(get_file())
-    data.show(data.cluster(), "mid", data.cols.y,1)
+    show(data.cluster(1,2,3,4), "mid", data.cols.y,1)
     assert True
 
 def test_optimize():
     data = Data(get_file())
-    data.show(data.sway(), "mid", data.cols.y,1)
+    show(data.sway(1,2,3,4), "mid", data.cols.y,1)
     assert True

@@ -8,6 +8,7 @@ import cols
 import row
 import sys
 import data
+import collections
 
 script_sir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(script_sir)
@@ -60,8 +61,8 @@ class Data():
 
         elif src_type == List[str]: # else we were passed the columns as a string
             self.add(src)
-        else:
-            raise Exception("Unsupported type in Data constructor")
+        # else:
+        #     raise Exception("Unsupported type in Data constructor")
 
     ## add method adds the row read from csv file
     ## It also checks if the col names is being read has already being read or not
@@ -77,7 +78,7 @@ class Data():
             self.cols.add(new_row)
 
     def clone(self):
-        new_data = Data({self.cols.names})
+        new_data = Data(self.cols.names)
         for row in self.rows:
             new_data.add(row)
         return new_data
@@ -98,18 +99,18 @@ class Data():
             d = d + col.dist(row1.cells[col.at], row2.cells[col.at]) ^ p
         return (d/n)^(1/p)
 
-    def around(self, row1, rows, cols):
-        return sorted(map(rows))
+    def around(self, rows):
+        return map(sorted(map(rows)))
 
     def half(self, rows, cols, above):
         rows = rows or self.rows
         some = many(rows,Sample)
-        A = above or any(some)
+        A = any(some)
         B = self.around(A,some)[(Far*len(rows)//1)]
         C = self.dist(A,B)
         left = {}
         right = {}
-        for n,tmp in enumerate(sorted(map(rows))):
+        for n,tmp in enumerate(collections.OrderedDict(sorted(rows.items()))):
             if n<=len(rows)//2:
                 left.add(tmp.row)
                 mid = tmp.row
@@ -121,7 +122,7 @@ class Data():
         rows = rows or self.rows
         min = min or len(rows)^min
         cols = cols or self.cols.x
-        node = data = self.clone(rows)
+        node = data = self.clone()
         if len(rows)>2*min:
             left, right, node.A, node.B, node.mid = self.half(rows,cols,above)
             node.left = self.cluster(left,min,cols,node.A)
@@ -129,12 +130,11 @@ class Data():
         return node
 
 
-
     def sway(self,rows,min,cols,above):
         rows = rows or self.rows
         min = min or len(rows)^min
         cols = cols or self.cols.x
-        node = data = self.clone(rows)
+        node = data = self.clone()
         if len(rows)>2*min:
             left, right, node.A, node.B, node.mid = self.half(rows,cols,above)
             if self.better(node.B,node.A):
@@ -148,7 +148,7 @@ def fmt(sControl: str, *args): #control string (format string)
         print(string.format(sControl))
 
 # show function needs to be added
-def show():
+def show(node, what, cols, nPlaces):
     return ""
 
 def rnd(n, nPlaces = 3):
