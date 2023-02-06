@@ -18,7 +18,7 @@ class Cols:
             if(s[-1].lower() != 'x'):
                 col = Num(n, s) if re.search("^[A-Z]+", s) != None else Sym(n, s)
                 self.all.append(col)
-                if re.search("X$", s) is None:
+                if re.search("X$", s) == None:
 
                     if(re.search("[!+-]$", s)):
                         self.y.append(col)
@@ -26,7 +26,8 @@ class Cols:
                         self.x.append(col)
                 
     def add(self, row: row.Rows):
-        for col in self.all:
-            col.add(row.cells[col.at])
+        for _,t in enumerate(self.x,self.y):
+            for _,col in enumerate(t):
+                col.add(row.cells[col.at])
 
 

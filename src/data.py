@@ -128,6 +128,8 @@ class Data():
             node.right = self.cluster(right,min,cols,node.B)
         return node
 
+
+
     def sway(self,rows,min,cols,above):
         rows = rows or self.rows
         min = min or len(rows)^min
@@ -140,6 +142,22 @@ class Data():
             else:
                 node.left = self.sway(left,min,cols,node.A)
         return node
+
+def fmt(sControl: str, *args): #control string (format string)
+    for string in args:
+        print(string.format(sControl))
+
+# show function needs to be added
+def show():
+    return ""
+
+def rnd(n, nPlaces = 3):
+    mult = math.pow(10, nPlaces)
+    return math.floor(n*mult + 0.5) / mult
+
+def o(t: object):
+    #todo()
+    return ""
 
 def rand(lo,hi):
     lo = lo or 0
@@ -180,6 +198,10 @@ def run_tests():
         
 
     print("\nPassing: " + str(passCount) + "\nFailing: " + str(failCount))
+    
+# api-side function to get the current input csv filepath
+def get_file() -> str:
+    return file
 
 # uses the value of the dump parameter and passed exception to determine what message to display to the user
 def get_crashing_behavior_message(e: Exception):
@@ -200,9 +222,7 @@ def get_seed() -> int:
 def should_dump() -> bool:
     return dump
 
-# api-side function to get the current input csv filepath
-def get_file() -> str:
-    return file
+
 
 ## find_arg_values gets the value of a command line argument
 # first it gets set of args
