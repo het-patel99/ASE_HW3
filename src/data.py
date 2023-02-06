@@ -122,7 +122,7 @@ class Data():
         rows = rows or self.rows
         min = min or len(rows)^min
         cols = cols or self.cols.x
-        node = data = self.clone(rows)
+        node = data = self.clone()
         if len(rows)>2*min:
             left, right, node.A, node.B, node.mid = self.half(rows,cols,above)
             node.left = self.cluster(left,min,cols,node.A)
@@ -135,7 +135,7 @@ class Data():
         rows = rows or self.rows
         min = min or len(rows)^min
         cols = cols or self.cols.x
-        node = data = self.clone(rows)
+        node = data = self.clone()
         if len(rows)>2*min:
             left, right, node.A, node.B, node.mid = self.half(rows,cols,above)
             if self.better(node.B,node.A):

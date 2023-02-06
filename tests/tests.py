@@ -89,7 +89,7 @@ def test_data():
 
 def test_clone():
     data1= Data(get_file())
-    data2= Data.clone()
+    data2= data1.clone()
     assert len(data1.rows) == len(data2.rows) and data1.cols.y[1].w == data2.cols.y[1].w and data1.cols.x[1].at == data2.cols.x[1].at and len(data1.cols.x) == len(data2.cols.x)
     
 
