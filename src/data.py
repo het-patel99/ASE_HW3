@@ -130,7 +130,6 @@ class Data():
         return node
 
 
-
     def sway(self,rows,min,cols,above):
         rows = rows or self.rows
         min = min or len(rows)^min
