@@ -96,14 +96,14 @@ def test_clone():
 def test_around():
     data= Data(get_file())
     print(0,0,o(data.rows[1].cells))
-    for n,t in enumerate(collections.OrderedDict(sorted(Data.around(data.rows[1]).items()))):
+    for n,t in enumerate(collections.OrderedDict(map(sorted(Data.around(data.rows[1])).items()))):
         if n % 50 == 0:
             print(n,rnd(t.dist,2), o(t.rows.cells))
     assert True
 
 def test_half():
     data = Data(get_file())
-    left,right,A,B,mid,c = Data.half([],1,1) # arguments in half ??
+    left,right,A,B,mid,c = data.half([],None,None) # arguments in half ??
     print(len(left), len(right), len(data.rows))
     print(o(A.cells()))
     print(o(B.cells()))

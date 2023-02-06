@@ -61,8 +61,8 @@ class Data():
 
         elif src_type == List[str]: # else we were passed the columns as a string
             self.add(src)
-        else:
-            raise Exception("Unsupported type in Data constructor")
+        # else:
+        #     raise Exception("Unsupported type in Data constructor")
 
     ## add method adds the row read from csv file
     ## It also checks if the col names is being read has already being read or not
