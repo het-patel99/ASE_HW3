@@ -102,7 +102,7 @@ def test_around():
 
 def test_half():
     data = Data(get_file())
-    left,right,A,B,mid,c = Data.half() # arguments in half ??
+    left,right,A,B,mid,c = Data.half(1,1,1) # arguments in half ??
     print(len(left), len(right), len(data.rows))
     print(o(A.cells()))
     print(o(B.cells()))
@@ -112,10 +112,10 @@ def test_half():
 
 def test_cluster():
     data = Data(get_file())
-    show(data.cluster(), "mid", data.cols.y,1)
+    show(data.cluster(1,2,3,4), "mid", data.cols.y,1)
     assert True
 
 def test_optimize():
     data = Data(get_file())
-    show(data.sway(), "mid", data.cols.y,1)
+    show(data.sway(1,2,3,4), "mid", data.cols.y,1)
     assert True

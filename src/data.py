@@ -76,7 +76,7 @@ class Data():
             self.rows.append(new_row)
             self.cols.add(new_row)
 
-    def clone(self):
+    def clone(self,rows):
         new_data = Data({self.cols.names})
         for row in self.rows:
             new_data.add(row)
@@ -98,7 +98,7 @@ class Data():
             d = d + col.dist(row1.cells[col.at], row2.cells[col.at]) ^ p
         return (d/n)^(1/p)
 
-    def around(self, row1, rows, cols):
+    def around(self, rows):
         return sorted(map(rows))
 
     def half(self, rows, cols, above):
