@@ -3,9 +3,9 @@ from typing import List
 import misc
 import cols
 import row
+from main import the
 
 def get_csv_contents(filepath):
-    # filepath = os.path.abspath(filepath)
     csv_list = []
     with open(filepath, 'r') as file:
         csv_file = csv.reader(file)
@@ -14,7 +14,7 @@ def get_csv_contents(filepath):
     return csv_list
 
 class Data:
-    
+
     ## constructor created for data.py class
     def __init__(self, src):
         self.rows = []
@@ -76,8 +76,8 @@ class Data:
         n, d = 0,0
         for _,col in enumerate(cols or self.cols.x):
             n = n + 1
-            d = d + col.dist(row1[col.at], row2[col.at]) ** main.p
-        return (d/n)**(1/main.p)
+            d = d + col.dist(row1[col.at], row2[col.at]) ** the["p"]
+        return (d/n)**(1/the["p"])
 
     def around(self, row1, rows = None , cols= None):
         if not rows:
@@ -89,9 +89,9 @@ class Data:
 
     def half(self, rows = None, cols = None, above = None):
         rows = rows or self.rows
-        some = misc.many(rows,main.Sample)
+        some = misc.many(rows,the["Sample"])
         A = above or misc.any(some)
-        B = self.around(A,some)[(main.Far*len(rows)//1)]["row"]
+        B = self.around(A,some)[(the["Far"]*len(rows)//1)]["row"]
         C = self.dist(A,B,cols)
         left = []
         right = []
@@ -116,7 +116,7 @@ class Data:
 
     def cluster(self, rows = None, min = None, cols = None, above = None):
         rows = rows or self.rows
-        min = min or len(rows)** main.min
+        min = min or len(rows)** the["min"]
         cols = cols or self.cols.x
         node = {"data": self.clone(rows)}
         if len(rows)>2*min:
@@ -127,7 +127,7 @@ class Data:
 
     def sway(self,rows = None,min = None,cols = None,above = None):
         rows = rows or self.rows
-        min = min or len(rows)**main.min
+        min = min or len(rows)**the["min"]
         cols = cols or self.cols.x
         node = {"data": self.clone(rows)}
         if len(rows)>2*min:
