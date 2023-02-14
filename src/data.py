@@ -52,7 +52,7 @@ class Data:
             self.rows.append(new_row)
             self.cols.add(new_row)
 
-    def clone(self, copyList = []):
+    def clone(self, copyList = None):
         new_data = Data(self.cols.names)
         for row in copyList:
             new_data.add(row)
@@ -101,7 +101,7 @@ class Data:
         def project(row):
             dic = {
                 "row": row,
-                "dist": misc.cosine(self.dist(row, A,cols), self.dist(row, B,cols), C),
+                "dist": misc.cosine(self.dist(row, A,cols), self.dist(row, B,cols), C)
             }
             return dic
 
@@ -118,7 +118,7 @@ class Data:
 
     def cluster(self, rows = None, min = None, cols = None, above = None):
         rows = rows or self.rows
-        min = min or len(rows)^ main.min
+        min = min or len(rows)** main.min
         cols = cols or self.cols.x
         node = {"data": self.clone(rows)}
         if len(rows)>2*min:
@@ -129,7 +129,7 @@ class Data:
 
     def sway(self,rows = None,min = None,cols = None,above = None):
         rows = rows or self.rows
-        min = min or len(rows)^main.min
+        min = min or len(rows)**main.min
         cols = cols or self.cols.x
         node = {"data": self.clone(rows)}
         if len(rows)>2*min:
