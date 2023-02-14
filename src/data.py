@@ -2,7 +2,6 @@ import misc
 import cols
 import row
 import math, csv
-from typing import List
 
 # reading the CSV file
 def csv_content(src):

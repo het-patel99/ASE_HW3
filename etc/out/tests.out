@@ -1,9 +1,10 @@
 ============================= test session starts =============================
 platform win32 -- Python 3.10.2, pytest-7.2.1, pluggy-1.0.0
-rootdir: D:\Documents\ASE_HW2\tests
-collected 5 items
+
+collected 9 items
 
 tests.py 
+
 test_csv: PASS
 .
 test_show_dump: PASS

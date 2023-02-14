@@ -22,11 +22,6 @@ def test_the():
     print(str(the))
     return True
 
-def test_csv():
-    csv_path = "../etc/data/auto93.csv"
-    data = Data(csv_path)
-    return data.count == 8*399
-
 def test_data():
     csv_path = "../etc/data/auto93.csv"
     data = Data(csv_path)
