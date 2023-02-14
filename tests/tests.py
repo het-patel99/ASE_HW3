@@ -13,6 +13,8 @@ from src.num import Num
 from src.sym import Sym
 from src.data import *
 from src.misc import *
+from src.main import *
+
 def round_to(n, nPlaces = 3):
     mult = math.pow(10, nPlaces)
     return math.floor(n*mult + 0.5) / mult
