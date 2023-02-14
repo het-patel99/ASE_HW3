@@ -1,4 +1,5 @@
-#
+# ASE Homework 3
+
 [![DOI](https://zenodo.org/badge/596268879.svg)](https://zenodo.org/badge/latestdoi/596268879)
 ![GitHub](https://img.shields.io/github/license/het-patel99/ASE_HW3)
 ![GitHub issues](https://img.shields.io/github/issues/het-patel99/ASE_HW3)
@@ -7,6 +8,13 @@
 ![github workflow](https://github.com/het-patel99/ASE_HW3/actions/workflows/unit_test.yml/badge.svg)
 
 
-# ASE Homework 3
+How to Run??
 
-# Authors: Shaunak Patel, Het Patel
+1. go to src/ directory and run python3 main.py
+2. To run the tests run pytest tests.py from src directory
+
+The tests.out file is stored inside the etc/out/ directory
+
+# Authors: 
+
+Shaunak Patel, Het Patel
