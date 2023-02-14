@@ -8,11 +8,12 @@ import row
 import sys
 import data
 import collections
+from tests.tests import *
+import traceback
 
 script_sir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(script_sir)
 os.sys.path.insert(0,parent_dir)
-from tests.tests import *
 
 # set to their default values
 random_instance = random.Random()
@@ -42,8 +43,6 @@ def run_tests():
             passCount = passCount + 1
         except AssertionError as e:
             failCount = failCount + 1
-        
-
     print("\nPassing: " + str(passCount) + "\nFailing: " + str(failCount))
     
 # api-side function to get the current input csv filepath

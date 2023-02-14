@@ -22,9 +22,7 @@ def print_res(function_name: str, res: bool):
     print("\n" + function_name + (": PASS" if res else ": FAIL"))
 
 def test_data():
-    root = str(Path(__file__).parent.parent.parent)
-    csv_path = os.path.join(root, "etc/data/auto93.csv")
-    data = Data(csv_path)
+    data = Data(main.get_file())
     return  len(data.rows) == 398 and \
             data.cols.y[0].w == -1 and \
             data.cols.x[1].at == 1 and \
@@ -53,10 +51,7 @@ def test_nums():
 
 def test_the():
     test_data = Data(main.get_file())
-    # i know this is horrible
     excepted_output = '\ny\tmid\t{ :Lbs- 2970.42 :Acc+ 15.57 :Mpg+ 23.84}\n \tdiv\t{ :Lbs- 846.84 :Acc+ 2.76 :Mpg+ 8.34}\nx\tmid\t{ :Clndrs 5.45 :Volume 193.43 :Model 76.01 :origin 1}\n \tdiv\t{ :Clndrs 1.7 :Volume 104.27 :Model 3.7 :origin 1.3273558482394003}'
-
-
     y_mid_report = '{'
     y_div_report = '{'
     for y in test_data.cols.y:
@@ -82,22 +77,23 @@ def test_the():
 def test_clone():
     data1= Data(main.get_file())
     data2= data1.clone(data1.rows)
-    return len(data1.rows) == len(data2.rows) and data1.cols.y[1].w == data2.cols.y[1].w and data1.cols.x[1].at == data2.cols.x[1].at and len(data1.cols.x) == len(data2.cols.x)
+    return len(data1.rows) == len(data2.rows) and \
+            data1.cols.y[1].w == data2.cols.y[1].w and \
+            data1.cols.x[1].at == data2.cols.x[1].at and \
+            len(data1.cols.x) == len(data2.cols.x)
     
-
 def test_around():
     data= Data(main.get_file())
-    print(0,0,o(data.rows[1].cells))
     for n,t in enumerate(data.around(data.rows[1])):
         if n % 50 == 0:
-            print(n,rnd(t.dist,2), o(t.rows.cells))
+            print(n,rnd(t["dist"],2), (t["row"]))
     return True
 
 def test_half():
     data = Data(main.get_file())
-    left,right,A,B,mid,c = data.half() # arguments in half ??
+    left,right,A,B,mid,c = data.half() 
     print(len(left), len(right), len(data.rows))
-    print(o(A.cells()))
+    print(o(A.cells()),c)
     print(o(B.cells()))
     print(o(mid.cells())) 
     return True
