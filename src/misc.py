@@ -1,5 +1,5 @@
 import math
-from main import seed as seed
+from main import seed
 
 def fmt(sControl: str, *args): #control string (format string)
     for string in args:

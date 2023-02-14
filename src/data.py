@@ -7,7 +7,7 @@ import row
 import misc, cols, row, main
 
 def get_csv_contents(filepath):
-    filepath = os.path.abspath(filepath)
+    # filepath = os.path.abspath(filepath)
     csv_list = []
     with open(filepath, 'r') as file:
         csv_file = csv.reader(file)
@@ -43,13 +43,13 @@ class Data:
     ## It also checks if the col names is being read has already being read or not
     ## if yes then it uses old rows
     ## else add the col rows.
-    def add(self, t):
+    def add(self, t: 'list[str]'):
 
         if(self.cols is None):
             self.cols = cols.Cols(t)
         else:
             new_row = row.Rows(t)
-            self.rows.append(new_row)
+            self.rows.append(new_row.cells)
             self.cols.add(new_row)
 
     def clone(self, copyList = None):
@@ -68,8 +68,8 @@ class Data:
     def better(self, row1, row2):
         s1,s2,ys = 0,0,self.cols.y
         for _,col in enumerate(ys):
-            x = col.norm(row1.cells[col.at])
-            y = col.norm[row2.cells[col.at]]
+            x = col.norm(row1[col.at])
+            y = col.norm[row2[col.at]]
             s1 = s1 - math.exp(col.w * (x-y) / len(ys))
             s2 = s2 - math.exp(col.w * (y-x) / len(ys))
         return s1/len(ys) < s2/len(ys)
@@ -78,7 +78,7 @@ class Data:
         n, d = 0,0
         for _,col in enumerate(cols or self.cols.x):
             n = n + 1
-            d = d + col.dist(row1.cells[col.at], row2.cells[col.at]) ** main.p
+            d = d + col.dist(row1[col.at], row2[col.at]) ** main.p
         return (d/n)**(1/main.p)
 
     def around(self, row1, rows = None , cols= None):
@@ -105,7 +105,7 @@ class Data:
             }
             return dic
 
-        res = [project(row) for row in rows]
+        res = [project(i) for i in rows]
         sorted(res,key=lambda x: x["dist"])
         for n, tmp in enumerate(res):
             if n <= len(rows) / 2:
