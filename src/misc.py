@@ -1,20 +1,36 @@
 import math
-from main import the
 import re
+from main import the
 
-def settings(s, t):
-    return dict(re.findall(r"\n[\s]+[-][\S]+[\s]+[-][-]([\S]+)[^\n]+= ([\S]+)", s))
-
-def show(node, what, cols, nPlaces, level = None):
+def show(node, what, cols, nPlaces, lvl=None):
     if node:
-        level = level or 0
-        print("| " * level, str(len(node["data"].rows)), " ")
-        if not node.get("left", None) or level == 0:
+        lvl = lvl or 0
+        print("| " * lvl, str(len(node["data"].rows)), " ")
+        if not node.get("left", None) or lvl == 0:
             print(o(node["data"].stats("mid", node["data"].cols.y, nPlaces)))
         else:
             print("")
-        show(node.get("left", None), what, cols, nPlaces, level+1)
-        show(node.get("right", None), what, cols, nPlaces, level+1)
+        show(node.get("left", None), what, cols, nPlaces, lvl+1)
+        show(node.get("right", None), what, cols, nPlaces, lvl+1)
+
+# Numeric Functions
+
+def rint(lo, hi):
+    return math.floor(0.5 + rand(lo, hi))
+
+def any(t):
+    return t[rint(len(t))]
+
+def many(t,n):
+    u = {}
+    for i in range(1,n):
+        u[1+len(u)] = any(t)
+    return u
+
+def rand(lo, hi):
+    lo, hi = lo or 0, hi or 1
+    Seed = (16807 * the["seed"]) % 2147483647
+    return lo + (hi-lo) * Seed / 2147483647
 
 def cosine(a, b, c):
     x1 = (a**2 + c**2 - b**2) / (2*c)
@@ -22,16 +38,50 @@ def cosine(a, b, c):
     y  = (a**2 - x2**2)**.5
     return x2, y
 
-def rnd(n, nPlaces = 3):
-    mult = math.pow(10, nPlaces)
-    return math.floor(n*mult + 0.5) / mult
 
-def o(t, isKeys=None):
-    return str(t)
-
-def oo(t):
-    print(o(t))
+def sort(t):
+    #Doubt
     return t
+
+# function sort(t, fun) --> t; return `t`,  sorted by `fun` (default= `<`)
+#   table.sort(t,fun); return t end
+
+def lt(x):
+    def fun(a, b):
+        return a[x] < b[x]
+
+def keys(t):
+    #Doubt
+    pass
+
+def push(t, x):
+    t.append(x)
+
+def any(t):
+    return t[rint(0, len(t) - 1)]
+
+def many(t, n):
+    u = []
+    for i in range(n):
+        u.append(any(t))
+    return u
+
+# String Functions
+
+def coerce(s): #Doubt
+    if s == "true":
+        return True
+    elif s == "false":
+        return False
+    elif re.search(r"[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?$", s) is not None:
+        return float(s)
+    else:
+        return s
+
+def rnd(n, nPlaces=3):
+    mult = 10**(nPlaces or 3)
+    return math.floor(n * mult + 0.5) / mult 
+
 
 def map(t,fun):
     u = {}
@@ -49,20 +99,13 @@ def kap(t, fun):
     
     return u
 
-def rand(lo,hi):
-    lo = lo or 0
-    hi = hi or 1
-    Seed = (16807 * the["seed"]) % 2147483647
-    return lo + (hi-lo) * Seed / 2147483647
+def oo(t):
+    print(o(t))
+    return t
 
-def rint(lo,hi):
-    return math.floor(0.5 + rand(lo,hi))
+def o(t, isKeys=None):
+    return str(t)
+# Main
 
-def any(t):
-    return t[rint(0,len(t)-1)]
-
-def many(t,n):
-    u = {}
-    for i in range(1,n):
-        u[1+len(u)] = any(t)
-    return u
+def settings(s, t):
+    return dict(re.findall(r"\n[\s]+[-][\S]+[\s]+[-][-]([\S]+)[^\n]+= ([\S]+)", s))
