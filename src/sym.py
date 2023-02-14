@@ -14,10 +14,10 @@ class Sym:
         self.most = 0
         self.mode = None
 
-    def at(self) -> int:
+    def at(self):
         return self.at
 
-    def txt(self) -> str:
+    def txt(self):
         return self.txt
 
     ## add function updates the counts for the values that has been seen so far

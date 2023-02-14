@@ -1,12 +1,9 @@
-import sys, getopt
 from num import *
 from misc import *
 from sym import *
 from data import *
-from pathlib import Path
 from main import the
 import os 
-
 def test_nums():
     val = Num()
     lst = [1,1,1,1,2,2,3]
@@ -27,13 +24,13 @@ def test_the():
     return True
 
 def test_csv():
-    root = str(Path(__file__).parent.parent)
+    root = "../"
     csv_path = os.path.join(root, "etc/data/auto93.csv")
     data = Data(csv_path)
     return data.count == 8*399
 
 def test_data():
-    root = str(Path(__file__).parent.parent)
+    root = "../"
     csv_path = os.path.join(root, "etc/data/auto93.csv")
     data = Data(csv_path)
     return  len(data.rows) == 398 and \
@@ -42,7 +39,7 @@ def test_data():
             len(data.cols.x) == 4
     
 def test_clone():
-    root = str(Path(__file__).parent.parent.parent)
+    root = "../"
     csv_path = os.path.join(root, "etc/data/auto93.csv")
     data1 = Data(csv_path)
     data2 = data1.clone(data1.rows)
@@ -52,7 +49,7 @@ def test_clone():
             len(data1.cols.x) == len(data2.cols.x)
 
 def test_around():
-    root = str(Path(__file__).parent.parent.parent)
+    root = "../"
     csv_path = os.path.join(root, "etc/data/auto93.csv")
     data = Data(csv_path)
 
@@ -62,7 +59,7 @@ def test_around():
     return True
 
 def test_half():
-    root = str(Path(__file__).parent.parent.parent)
+    root = "../"
     csv_path = os.path.join(root, "etc/data/auto93.csv")
     data = Data(csv_path)
 
@@ -74,7 +71,7 @@ def test_half():
     return True
 
 def test_cluster():
-    root = str(Path(__file__).parent.parent.parent)
+    root = "../"
     csv_path = os.path.join(root, "etc/data/auto93.csv")
     data = Data(csv_path)
     print("\nThe Results of CLUSTER function are as follows:")
@@ -82,7 +79,7 @@ def test_cluster():
     return True
 
 def test_optimize():
-    root = str(Path(__file__).parent.parent.parent)
+    root = "../"
     csv_path = os.path.join(root, "etc/data/auto93.csv")
     data = Data(csv_path)
     print("\nThe Results of SWAY function are as follows:")

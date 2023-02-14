@@ -1,6 +1,5 @@
 import sys, getopt
 from tests import *
-from pathlib import Path
 
 def run_tests():
     print("Executing tests...\n")
