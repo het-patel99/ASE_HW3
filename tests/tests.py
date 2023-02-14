@@ -82,7 +82,7 @@ def test_around():
     data= Data(main.get_file())
     for n,t in enumerate(data.around(data.rows[1])):
         if n % 50 == 0:
-            print(n,misc.rnd(t["dist"],2), misc.o(t["row"]["cells"]))
+            print(n,misc.rnd(t["dist"],2), (t["row"]))
     return True
 
 def test_half():

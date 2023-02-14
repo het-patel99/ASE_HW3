@@ -1,10 +1,7 @@
 
 from num import Num
 from sym import Sym
-import row
-from collections import OrderedDict
 import re
-from enum import Enum
 
 class Cols:
 
@@ -26,9 +23,9 @@ class Cols:
                     self.x.append(col)
                 
     def add(self, row):
-        last = [self.x,self.y]
-        for _,t in enumerate(last):
-            for _,col in enumerate(t):
+        lst = [self.x,self.y]
+        for _, t in enumerate(lst):
+            for _, col in enumerate(t):
                 col.add(row.cells[col.at])
 
 
