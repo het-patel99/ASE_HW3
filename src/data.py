@@ -49,7 +49,7 @@ class Data:
             self.cols = cols.Cols(t)
         else:
             new_row = row.Rows(t)
-            self.rows.append(new_row)
+            self.rows.append(new_row.cells)
             self.cols.add(new_row)
 
     def clone(self, copyList = None):
@@ -68,8 +68,8 @@ class Data:
     def better(self, row1, row2):
         s1,s2,ys = 0,0,self.cols.y
         for _,col in enumerate(ys):
-            x = col.norm(row1.cells[col.at])
-            y = col.norm[row2.cells[col.at]]
+            x = col.norm(row1[col.at])
+            y = col.norm[row2[col.at]]
             s1 = s1 - math.exp(col.w * (x-y) / len(ys))
             s2 = s2 - math.exp(col.w * (y-x) / len(ys))
         return s1/len(ys) < s2/len(ys)

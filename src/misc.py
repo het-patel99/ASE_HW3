@@ -53,8 +53,8 @@ def kap(t, fun):
 def rand(lo,hi):
     lo = lo or 0
     hi = hi or 1
-    seed = (16807 * seed) % 2147483647
-    return lo + (hi-lo) * seed / 2147483647
+    Seed = (16807 * seed) % 2147483647
+    return lo + (hi-lo) * Seed / 2147483647
 
 def rint(lo,hi):
     return math.floor(0.5 + rand(lo,hi))
