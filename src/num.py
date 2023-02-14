@@ -18,10 +18,10 @@ class Num:
 
         self.w = -1 if '-$' in self.txt else 1
 
-    def at(self) -> int:
+    def at(self):
         return self.at
 
-    def txt(self) -> str:
+    def txt(self):
         return self.txt
 
     ## add method adds the n value also,

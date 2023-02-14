@@ -1,10 +1,8 @@
+import math, csv
 from typing import List
-import math
-import os
-import csv
+import misc
 import cols
 import row
-import misc, cols, row, main
 
 def get_csv_contents(filepath):
     # filepath = os.path.abspath(filepath)
@@ -15,8 +13,8 @@ def get_csv_contents(filepath):
             csv_list.append(i)
     return csv_list
 
-
 class Data:
+    
     ## constructor created for data.py class
     def __init__(self, src):
         self.rows = []

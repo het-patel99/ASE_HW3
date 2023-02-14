@@ -1,11 +1,10 @@
 import math
-from main import seed
+from main import the
+import re
 
-def fmt(sControl: str, *args): #control string (format string)
-    for string in args:
-        print(string.format(sControl))
+def settings(s, t):
+    return dict(re.findall(r"\n[\s]+[-][\S]+[\s]+[-][-]([\S]+)[^\n]+= ([\S]+)", s))
 
-# show function needs to be added
 def show(node, what, cols, nPlaces, level = None):
     if node:
         level = level or 0
@@ -53,7 +52,7 @@ def kap(t, fun):
 def rand(lo,hi):
     lo = lo or 0
     hi = hi or 1
-    Seed = (16807 * seed) % 2147483647
+    Seed = (16807 * the["seed"]) % 2147483647
     return lo + (hi-lo) * Seed / 2147483647
 
 def rint(lo,hi):
