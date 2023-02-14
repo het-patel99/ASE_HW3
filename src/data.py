@@ -3,68 +3,74 @@ from typing import List
 import misc
 import cols
 import row
+from main import the
 
-# reading the CSV file
-def csv_content(src):
-    res = []
-    with open(src, mode='r') as file:
-        csvFile = csv.reader(file)
-        for row in csvFile:
-            res.append(row)
-    return res
+def get_csv_contents(filepath):
+    csv_list = []
+    with open(filepath, 'r') as file:
+        csv_file = csv.reader(file)
+        for i in csv_file:
+            csv_list.append(i)
+    return csv_list
 
 class Data:
 
+    ## constructor created for data.py class
     def __init__(self, src):
         self.rows = []
-        self.cols = None
+        self.cols =  None
         self.count = 0
-
-        if type(src) == str:
-            csv_list = csv_content(src)
-            for line,row in enumerate(csv_list):
-                row_cont = []
-                for oth_line,val in enumerate(row):
-                    row_cont.append(val.strip())
+        ## if the src is string then
+        ## it reads the file and then calls the add method to add each row
+        src_type = type(src)
+        if src_type == str :
+            csv_list = get_csv_contents(src)
+            for row in csv_list:
+                trimmed_row = []
+                for item in row:
+                    trimmed_row.append(item.strip())
                     self.count+=1
-                self.add(row_cont)
+                self.add(trimmed_row)
 
-        else:
+        else: # else we were passed the columns as a string
             self.add(src)
+        # else:
+        #     raise Exception("Unsupported type in Data constructor")
 
+    ## add method adds the row read from csv file
+    ## It also checks if the col names is being read has already being read or not
+    ## if yes then it uses old rows
+    ## else add the col rows.
+    def add(self, t: 'list[str]'):
 
-    def add(self, t):
-        if (self.cols):
-            
-            row = row.Rows(t)
-            self.rows.append(row.cells)
-            self.cols.add(row)
-        else:
+        if(self.cols is None):
             self.cols = cols.Cols(t)
+        else:
+            new_row = row.Rows(t)
+            self.rows.append(new_row.cells)
+            self.cols.add(new_row)
 
-    def stats(self,what,cols,nPlaces):
+    def clone(self, copyList = None):
+        new_data = Data(self.cols.names)
+        for row in copyList:
+            new_data.add(row)
+        return new_data
+
+    def stats(self, what, cols, nPlaces):
         def fun(k,col):
-            f = getattr(col,what)
-            return col.rnd(f(),nPlaces), col.txt
+            fun1 = getattr(col,what)
+            return col.rnd(fun1(),nPlaces), col.txt
         
         return misc.kap(cols,fun)
 
-    def clone(self,init= []):
-        data = Data(self.cols.names)
-        for val in init:
-            data.add(val)
-        return data
-
     def better(self, row1, row2):
-        s1, s2, ys = 0, 0, self.cols.y
+        s1,s2,ys = 0,0,self.cols.y
         for _,col in enumerate(ys):
             x = col.norm(row1[col.at])
-            y = col.norm(row2[col.at])
-            s1 = s1 - math.exp(col.w * (x - y) / len(ys))
-            s2 = s2 - math.exp(col.w * (y - x) / len(ys))
-        
+            y = col.norm[row2[col.at]]
+            s1 = s1 - math.exp(col.w * (x-y) / len(ys))
+            s2 = s2 - math.exp(col.w * (y-x) / len(ys))
         return s1/len(ys) < s2/len(ys)
-
 
     def dist(self, row1, row2, cols=None):
         n, d = 0, 0
@@ -73,37 +79,32 @@ class Data:
             val = col.dist(row1[col.at], row2[col.at])
             d = d + val ** 2
         return (d / n) ** (1 / 2)
-    
+
     def around(self, row1, rows = None , cols= None):
         if not rows:
             rows = self.rows
-        def fun(row2):
+        def func(row2):
             return {"row": row2, "dist": self.dist(row1, row2, cols)}
-        u = map(fun,rows)
+        u = map(func,rows)
         return sorted(u,key = lambda x: x['dist'])
 
-
-    def half(self, rows=None, cols=None, above=None):
-        def dist1(row1, row2):
-            return self.dist(row1, row2, cols)
-
+    def half(self, rows = None, cols = None, above = None):
+        rows = rows or self.rows
+        some = misc.many(rows,the["Sample"])
+        A = above or misc.any(some)
+        B = self.around(A,some)[(the["Far"]*len(rows)//1)]["row"]
+        C = self.dist(A,B,cols)
+        left = []
+        right = []
+        mid = None
         def project(row):
             dic = {
                 "row": row,
-                "dist": misc.cosine(dist1(row, A), dist1(row, B), c),
+                "dist": misc.cosine(self.dist(row, A,cols), self.dist(row, B,cols), C)
             }
             return dic
-            
-        if not rows:
-            rows = self.rows
 
-        some = misc.many(rows, 512)
-        A = above or misc.any(some)
-        B = self.around(A, some)[int(0.95 * len(rows))]["row"]
-        c = dist1(A, B)
-        left, right = [], []
-        mid = None
-        res = [project(row) for row in rows]
+        res = [project(i) for i in rows]
         sorted(res,key=lambda x: x["dist"])
         for n, tmp in enumerate(res):
             if n <= len(rows) / 2:
@@ -112,35 +113,28 @@ class Data:
             else:
                 right.append(tmp["row"])
 
-        return left, right, A, B, mid, c
+        return left, right, A, B, mid, C
 
-
-
-    def cluster(self, rows=None, min_size=None, cols=None, above=None):
+    def cluster(self, rows = None, min = None, cols = None, above = None):
         rows = rows or self.rows
-        min_val = min_size or (len(rows)) ** 0.5
-        if not cols:
-            cols = self.cols.x
-        node = {"data": self.clone(rows)}
-        if len(rows) > 2 * min_val:
-            left, right, node["A"], node["B"], node["mid"], temp = self.half(rows, cols, above)
-            node["left"] = self.cluster(left, min_val, cols, node["A"])
-            node["right"] = self.cluster(right, min_val, cols, node["B"])
-        
-        return node
-
-
-
-    def sway(self, rows=None, min=None, cols=None, above=None):
-        rows = rows or self.rows
-        min = min or len(rows) ** 0.5
+        min = min or len(rows)** the["min"]
         cols = cols or self.cols.x
         node = {"data": self.clone(rows)}
+        if len(rows)>2*min:
+            left, right, node["A"], node["B"], node["mid"], temp = self.half(rows,cols,above)
+            node["left"] = self.cluster(left,min,cols,node["A"])
+            node["right"] = self.cluster(right,min,cols,node["B"])
+        return node
 
-        if len(rows) > 2 * min:
-            left, right, node["A"], node["B"], node["min"], _ = self.half(rows, cols, above)
-            if self.better(node["B"], node["A"]):
-                left, right, node["A"], node["B"] = right, left, node["B"], node["A"]
-            node["left"] = self.sway(left, min, cols, node["A"])
-
+    def sway(self,rows = None,min = None,cols = None,above = None):
+        rows = rows or self.rows
+        min = min or len(rows)**the["min"]
+        cols = cols or self.cols.x
+        node = {"data": self.clone(rows)}
+        if len(rows)>2*min:
+            left, right, node["A"], node["B"], node["mid"],temp = self.half(rows,cols,above)
+            if self.better(node["B"],node["A"]):
+                left,right,node["A"],node["B"] = right,left,node["B"],node["A"]
+            else:
+                node["left"] = self.sway(left,min,cols,node["A"])
         return node
