@@ -26,6 +26,6 @@ class Cols:
         lst = [self.x,self.y]
         for _, t in enumerate(lst):
             for _, col in enumerate(t):
-                col.add(row.cells[col.at])
+                col.add(row[col.at])
 
 
