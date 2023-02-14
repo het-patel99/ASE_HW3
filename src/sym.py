@@ -29,7 +29,8 @@ class Sym:
             return p*math.log(p,2)
         e = 0
         for k, v in self.has.items():
-            e = e + fun(v/self.n)
+            p = v/self.n
+            e = e + (fun(p) if p>0 else 0)
         return -e
     
     def rnd(self,i,x,n=None):

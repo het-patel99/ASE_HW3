@@ -16,7 +16,7 @@ def show(node, what, cols, nPlaces, lvl=None):
 # Numeric Functions
 
 def rint(lo, hi):
-    return math.floor(0.5 + rand(lo, hi))
+    return int(math.floor(0.5 + rand(lo, hi)))
 
 def any(t):
     return t[rint(len(t))]

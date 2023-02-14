@@ -1,25 +1,87 @@
-============================= test session starts =============================
-platform win32 -- Python 3.10.2, pytest-7.2.1, pluggy-1.0.0
+============================================================= test session starts =============================================================
+platform linux2 -- Python 2.7.18, pytest-4.6.9, py-1.8.1, pluggy-0.13.0
+rootdir: /home/het0199/Documents/NCSU_SEM-4/ASE/ASE_HW3/src
+collected 9 items                                                                                                                             
 
-collected 9 items
+tests.py .........                                                                                                                      [100%]
 
-tests.py 
-
-test_csv: PASS
-.
-test_show_dump: PASS
-.
-test_syms: PASS
-.
 test_nums: PASS
-.
 
+test_syms: PASS
+
+The results of test_the function:
+{"seed": 937162211, "dump": False, "go": "data", "help": False, "min" : 0.5, "p" : 2, "Sample" : 512, "Far" : 0.95}
+test_the: PASS
+
+The results of test_data function:
 test_data: PASS
 
-y	mid	{ :Lbs- 2970.42 :Acc+ 15.57 :Mpg+ 23.84}
- 	div	{ :Lbs- 846.84 :Acc+ 2.76 :Mpg+ 8.34}
-x	mid	{ :Clndrs 5.45 :Volume 193.43 :Model 76.01 :origin 1}
- 	div	{ :Clndrs 1.7 :Volume 104.27 :Model 3.7 :origin 1.3273558482394003}
-.
+test_clone: PASS
 
-============================== 5 passed in 0.02s ==============================
+test_around: PASS
+
+test_half: PASS
+
+test_cluster: PASS
+The Results of test_cluster are as follows:398
+{'Lbs-': 2970.4, 'Acc+': 15.6, 'Mpg+': 23.8} | 200
+
+| | 101
+
+| | | 51
+
+| | | | 26
+{'Lbs-': 4502.5, 'Acc+': 12.9, 'Mpg+': 10.0} | | | | 25
+{'Lbs-': 4109.8, 'Acc+': 12.5, 'Mpg+': 10.0} | | | 50
+
+| | | | 26
+{'Lbs-': 3867.4, 'Acc+': 13.6, 'Mpg+': 19.2} | | | | 24
+{'Lbs-': 3932.1, 'Acc+': 14.7, 'Mpg+': 20.0} | | 99
+
+| | | 50
+
+| | | | 26
+{'Lbs-': 3308.1, 'Acc+': 14.9, 'Mpg+': 20.0} | | | | 24
+{'Lbs-': 3246.2, 'Acc+': 16.3, 'Mpg+': 20.0} | | | 49
+
+| | | | 25
+{'Lbs-': 2978.6, 'Acc+': 16.5, 'Mpg+': 20.0} | | | | 24
+{'Lbs-': 2764.1, 'Acc+': 15.8, 'Mpg+': 20.0} | 198
+
+| | 100
+
+| | | 51
+
+| | | | 26
+{'Lbs-': 2721.0, 'Acc+': 16.0, 'Mpg+': 20.0} | | | | 25
+{'Lbs-': 2460.6, 'Acc+': 17.0, 'Mpg+': 28.8} | | | 49
+
+| | | | 25
+{'Lbs-': 2488.7, 'Acc+': 16.4, 'Mpg+': 30.0} | | | | 24
+{'Lbs-': 2358.8, 'Acc+': 16.1, 'Mpg+': 30.0} | | 98
+
+| | | 50
+
+| | | | 26
+{'Lbs-': 2244.0, 'Acc+': 16.8, 'Mpg+': 30.0} | | | | 24
+{'Lbs-': 2178.3, 'Acc+': 16.1, 'Mpg+': 30.0} | | | 48
+
+| | | | 25
+{'Lbs-': 2123.0, 'Acc+': 15.9, 'Mpg+': 35.2} | | | | 23
+{'Lbs-': 2086.3, 'Acc+': 17.8, 'Mpg+': 40.4}
+
+test_optimize: PASS
+The Results of test_optimize are as follows:398
+{'Lbs-': 2970.4, 'Acc+': 15.6, 'Mpg+': 23.8} | 200
+
+| | 101
+
+| | | 51
+
+| | | | 26
+{'Lbs-': 4502.5, 'Acc+': 12.9, 'Mpg+': 10.0}
+
+Passing: 9
+Failing: 0
+
+========================================================== 9 passed in 0.19 seconds ===========================================================
