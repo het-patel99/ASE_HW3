@@ -3,7 +3,6 @@ from misc import *
 from sym import *
 from data import *
 from main import the
-import os 
 def test_nums():
     val = Num()
     lst = [1,1,1,1,2,2,3]
@@ -24,14 +23,12 @@ def test_the():
     return True
 
 def test_csv():
-    root = "../"
-    csv_path = os.path.join(root, "etc/data/auto93.csv")
+    csv_path = "../etc/data/auto93.csv"
     data = Data(csv_path)
     return data.count == 8*399
 
 def test_data():
-    root = "../"
-    csv_path = os.path.join(root, "etc/data/auto93.csv")
+    csv_path = "../etc/data/auto93.csv"
     data = Data(csv_path)
     return  len(data.rows) == 398 and \
             data.cols.y[0].w == -1 and \
@@ -39,8 +36,7 @@ def test_data():
             len(data.cols.x) == 4
     
 def test_clone():
-    root = "../"
-    csv_path = os.path.join(root, "etc/data/auto93.csv")
+    csv_path = "../etc/data/auto93.csv"
     data1 = Data(csv_path)
     data2 = data1.clone(data1.rows)
     return  len(data1.rows) == len(data2.rows) and \
@@ -49,8 +45,7 @@ def test_clone():
             len(data1.cols.x) == len(data2.cols.x)
 
 def test_around():
-    root = "../"
-    csv_path = os.path.join(root, "etc/data/auto93.csv")
+    csv_path = "../etc/data/auto93.csv"
     data = Data(csv_path)
 
     for n, t in enumerate(data.around(data.rows[1])):
@@ -59,8 +54,7 @@ def test_around():
     return True
 
 def test_half():
-    root = "../"
-    csv_path = os.path.join(root, "etc/data/auto93.csv")
+    csv_path = "../etc/data/auto93.csv"
     data = Data(csv_path)
 
     left, right, A, B, mid, c = data.half()
@@ -71,16 +65,14 @@ def test_half():
     return True
 
 def test_cluster():
-    root = "../"
-    csv_path = os.path.join(root, "etc/data/auto93.csv")
+    csv_path = "../etc/data/auto93.csv"
     data = Data(csv_path)
     print("\nThe Results of CLUSTER function are as follows:")
     show(data.cluster(), "mid", data.cols.y, 1)
     return True
 
 def test_optimize():
-    root = "../"
-    csv_path = os.path.join(root, "etc/data/auto93.csv")
+    csv_path = "../etc/data/auto93.csv"
     data = Data(csv_path)
     print("\nThe Results of SWAY function are as follows:")
     show(data.sway(), "mid", data.cols.y, 1)
