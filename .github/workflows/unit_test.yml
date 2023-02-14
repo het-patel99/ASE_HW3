@@ -22,7 +22,6 @@ jobs:
 #           echo requirements installed
       - name: Run tests
         run: |
-          cd tests
           pip install pytest
           pip install pytest-cov
           pytest tests.py
