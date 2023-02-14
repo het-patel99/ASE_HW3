@@ -1,13 +1,8 @@
 from typing import List
-import math
 import os
-import csv
 import random
-import cols
-import row
 import sys
 import data
-import collections
 from tests.tests import *
 import traceback
 

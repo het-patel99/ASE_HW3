@@ -1,18 +1,14 @@
-import random
 import math
 import os
 import sys
-import traceback
-import collections
 from pathlib import Path
 sys.path.append(os.path.abspath('../src'))
 
-from src.cols import Cols
 from src.num import Num
 from src.sym import Sym
 from src.data import *
 from src.misc import *
-from src.main import *
+from src.main import get_file
 
 def round_to(n, nPlaces = 3):
     mult = math.pow(10, nPlaces)
@@ -86,24 +82,24 @@ def test_around():
     data= Data(main.get_file())
     for n,t in enumerate(data.around(data.rows[1])):
         if n % 50 == 0:
-            print(n,rnd(t["dist"],2), (t["row"]))
+            print(n,misc.rnd(t["dist"],2), misc.o(t["row"]["cells"]))
     return True
 
 def test_half():
     data = Data(main.get_file())
     left,right,A,B,mid,c = data.half() 
     print(len(left), len(right), len(data.rows))
-    print(o(A.cells()),c)
-    print(o(B.cells()))
-    print(o(mid.cells())) 
+    print(misc.o(A.cells()),c)
+    print(misc.o(B.cells()))
+    print(misc.o(mid.cells())) 
     return True
 
 def test_cluster():
     data = Data(get_file())
-    show(data.cluster(), "mid", data.cols.y,1)
+    misc.show(data.cluster(), "mid", data.cols.y,1)
     return True
 
 def test_optimize():
     data = Data(get_file())
-    show(data.sway(), "mid", data.cols.y,1)
+    misc.show(data.sway(), "mid", data.cols.y,1)
     return True
