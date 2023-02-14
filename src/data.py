@@ -72,12 +72,13 @@ class Data:
             s2 = s2 - math.exp(col.w * (y-x) / len(ys))
         return s1/len(ys) < s2/len(ys)
 
-    def dist(self, row1, row2, cols = None):
-        n, d = 0,0
-        for _,col in enumerate(cols or self.cols.x):
+    def dist(self, row1, row2, cols=None):
+        n, d = 0, 0
+        for _, col in enumerate(cols or self.cols.x):
             n = n + 1
-            d = d + col.dist(row1[col.at], row2[col.at]) ** the["p"]
-        return (d/n)**(1/the["p"])
+            val = col.dist(row1[col.at], row2[col.at])
+            d = d + val ** 2
+        return (d / n) ** (1 / 2)
 
     def around(self, row1, rows = None , cols= None):
         if not rows:

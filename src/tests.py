@@ -31,7 +31,7 @@ def test_data():
     csv_path = "../etc/data/auto93.csv"
     data = Data(csv_path)
     return  len(data.rows) == 398 and \
-            data.cols.y[0].w == -1 and \
+            data.cols.y[1].w == -1 and \
             data.cols.x[1].at == 1 and \
             len(data.cols.x) == 4
     
