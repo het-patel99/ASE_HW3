@@ -3,7 +3,7 @@ import os
 import random
 import sys
 import data
-from tests.tests import *
+from tests import tests
 import traceback
 
 script_sir = os.path.dirname(os.path.abspath(__file__))
@@ -30,7 +30,7 @@ def run_tests():
 
     passCount = 0
     failCount = 0
-    test_suite = [test_data, test_syms, test_nums, test_the, test_clone, test_around, test_half, test_cluster, test_optimize] 
+    test_suite = [tests.test_data, tests.test_syms, tests.test_nums, tests.test_the, tests.test_clone, tests.test_around, tests.test_half, tests.test_cluster, tests.test_optimize] 
     
     for test in test_suite:
         try:
