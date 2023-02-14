@@ -1,10 +1,8 @@
 
 from num import Num
 from sym import Sym
-import row
 from collections import OrderedDict
 import re
-from enum import Enum
 
 class Cols:
 

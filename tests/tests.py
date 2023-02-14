@@ -24,7 +24,7 @@ def print_res(function_name: str, res: bool):
 def test_data():
     data = Data(main.get_file())
     return  len(data.rows) == 398 and \
-            data.cols.y[0].w == -1 and \
+            data.cols.y[1].w == -1 and \
             data.cols.x[1].at == 1 and \
             len(data.cols.x) == 4
 

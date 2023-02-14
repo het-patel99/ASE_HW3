@@ -1,5 +1,5 @@
 import math
-
+from main import *
 
 def fmt(sControl: str, *args): #control string (format string)
     for string in args:
@@ -53,7 +53,7 @@ def kap(t, fun):
 def rand(lo,hi):
     lo = lo or 0
     hi = hi or 1
-    seed = (16807 * seed) % 2147483647
+    seed = (16807 * main.seed) % 2147483647
     return lo + (hi-lo) * seed / 2147483647
 
 def rint(lo,hi):
