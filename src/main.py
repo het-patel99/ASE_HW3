@@ -34,7 +34,7 @@ def run_tests():
 
     passCount = 0
     failCount = 0
-    test_suite = [test_show_dump, test_syms, test_nums, test_data, test_clone, test_around, test_half, test_cluster, test_optimize] 
+    test_suite = [test_data, test_syms, test_nums, test_the, test_clone, test_around, test_half, test_cluster, test_optimize] 
 
     for test in test_suite:
         try:
